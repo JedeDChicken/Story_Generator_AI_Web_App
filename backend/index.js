@@ -24,7 +24,13 @@ const app = express();  // Express instance
 // Middleware
 app.use(express.json())  // Middleware to pass incoming json as express
 const corsOptions = {
-    origin: [process.env.VITE_REACT_APP_BACKEND_BASEURL, process.env.VITE_REACT_APP_BACKEND_BASEURL_1]
+    // origin: [process.env.VITE_REACT_APP_BACKEND_BASEURL, process.env.VITE_REACT_APP_BACKEND_BASEURL_1]
+    origin: ['https://jede-story-generator.vercel.app', 
+        process.env.VITE_REACT_APP_BACKEND_BASEURL, 
+        process.env.VITE_REACT_APP_BACKEND_BASEURL_1
+    ], 
+    methods: ['GET', 'POST', 'PUT', 'DELETE', 'PATCH', 'OPTIONS'], 
+    credentials: true
 }
 app.use(cors(corsOptions));
 
