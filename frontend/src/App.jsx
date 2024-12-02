@@ -10,13 +10,13 @@ import { useMutation } from '@tanstack/react-query'  // Hook, to handle side-eff
 // Use Mutation (from React Query)- Hook used to make HTTP req (either POST, PUT, or DELETE)
 // Function to make req, must return a Promise (useMutation), async functions return Promise
 const makeRequestAPI = async (prompt) => {  // Must accept the prompt, care
-  const res = await axios.post('http://localhost:8080/generate', { prompt });  // Sends POST request to backend (8080...) w/ { prompt } as body...
+  const res = await axios.post('https://jede-story-generator-backend.vercel.app/generate', { prompt });  // Sends POST request to backend (8080...) w/ { prompt } as body...
   return res.data;  // res- response object, data...
 }
 
 // Fetch history from db
 const fetchHistoryAPI = async () => {
-  const res = await axios.get('http://localhost:8080/prompts');
+  const res = await axios.get('https://jede-story-generator-backend.vercel.app/prompts');
   return res.data;
 }
 
