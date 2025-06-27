@@ -40,24 +40,24 @@ app.use(cors(corsOptions));
 app.use(routes);
 
 // Imagen
-// async function generateImage(prompt) {
-//     try {
-//         const response = await openai.images.generate({
-//             model: 'dall-e-3', 
-//             prompt: prompt, 
-//             n: 1, 
-//             size: '1024x1024'
-//         });
+async function generateImage(prompt) {
+    try {
+        const response = await openai.images.generate({
+            model: 'dall-e-3', 
+            prompt: prompt, 
+            n: 1, 
+            size: '1024x1024'
+        });
 
-//         return response.data[0].url;
-//     }
-//     catch (err) {
-//         // console.log(err);
-//         // res.status(500).send('Failed to generate content');
-//         console.error('Error generating image: ', err);
-//         throw new Error('Failed to generate image');
-//     }
-// }
+        return response.data[0].url;
+    }
+    catch (err) {
+        // console.log(err);
+        // res.status(500).send('Failed to generate content');
+        console.error('Error generating image: ', err);
+        throw new Error('Failed to generate image');
+    }
+}
 
 // Start server
 app.listen(PORT, () => {
