@@ -1,4 +1,4 @@
-// To dos- proper format for multi-turn chat (convo, prompt eng'g)
+// To dos- proper format for multi-turn chat/conversation (prompt engineering)
 
 // Notes
 // See Quickstart documentation- https://ai.google.dev/gemini-api/docs/quickstart?lang=node
