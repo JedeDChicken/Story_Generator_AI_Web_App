@@ -9,6 +9,8 @@
 // Nodemon- instead use node --watch app.js
 // Postman- instead use Thunder Client extension
 
+// https://vercel.com/guides/how-to-allowlist-deployment-ip-address- Vercel Secure but it's paid
+
 // Use ES Modules
 // require('dotenv').config();
 import dotenv from 'dotenv';
@@ -31,6 +33,7 @@ const corsOptions = {
         process.env.VITE_REACT_APP_BACKEND_BASEURL, 
         process.env.VITE_REACT_APP_BACKEND_BASEURL_1
     ], 
+    // origin: ['http://localhost:5174', 'http://localhost:5173', 'http://localhost:8080'], 
     methods: ['GET', 'POST', 'PUT', 'DELETE', 'PATCH', 'OPTIONS'], 
     credentials: true
 }
@@ -40,24 +43,24 @@ app.use(cors(corsOptions));
 app.use(routes);
 
 // Imagen
-async function generateImage(prompt) {
-    try {
-        const response = await openai.images.generate({
-            model: 'dall-e-3', 
-            prompt: prompt, 
-            n: 1, 
-            size: '1024x1024'
-        });
+// async function generateImage(prompt) {
+//     try {
+//         const response = await openai.images.generate({
+//             model: 'dall-e-3', 
+//             prompt: prompt, 
+//             n: 1, 
+//             size: '1024x1024'
+//         });
 
-        return response.data[0].url;
-    }
-    catch (err) {
-        // console.log(err);
-        // res.status(500).send('Failed to generate content');
-        console.error('Error generating image: ', err);
-        throw new Error('Failed to generate image');
-    }
-}
+//         return response.data[0].url;
+//     }
+//     catch (err) {
+//         // console.log(err);
+//         // res.status(500).send('Failed to generate content');
+//         console.error('Error generating image: ', err);
+//         throw new Error('Failed to generate image');
+//     }
+// }
 
 // Start server
 app.listen(PORT, () => {
