@@ -44,7 +44,7 @@ router.post('/generate', async(req, res) => {
         var prompt_context = conversations.join(' ') + ' ';  // Joins elements
         var prompt_prompt = `Write/continue a/the detailed story from this prompt/context (if any): ${prompt_context}. The latest prompt is: ${prompt}`;
 
-        const model = await genAI.getGenerativeModel({ model: "gemini-2.5-pro" });  // Ensure to fetch model every time...
+        const model = await genAI.getGenerativeModel({ model: "gemini-2.5-flash" });  // Ensure to fetch model every time...
         const result = await model.generateContent(prompt_prompt);
         const text = result.response.text();
         const text_processed = text.replace(/^\s*\*\s+/gm, '')  // Removes bullet points (*)
