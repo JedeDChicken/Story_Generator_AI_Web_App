@@ -171,7 +171,7 @@ p {
   justify-content: space-between;
   align-content: center;
   width: 100%;
-  margin-bottom: 1rem;
+  /* margin-bottom: 1rem; */
   gap: 1rem;
 }
 
@@ -202,6 +202,10 @@ p {
   /* background-color: #00c6ff; */
 }
 
+#Error {
+  color: #e53935;
+}
+
 /* .App-label {
   display: block;
   text-align: left;
@@ -214,6 +218,7 @@ p {
   width: 95%;
   height: 480px;
   padding: 1rem;
+  margin-top: 1rem;
   border: none;
   border-radius: 0.25rem;
   font-size: 18px;
