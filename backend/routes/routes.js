@@ -41,7 +41,7 @@ router.post('/generate', async(req, res) => {
         var conversations = stories_db_sorted.map(doc => doc.prompt);  // Remaps to another array w/ the given function/formula
 
         // Process conversations
-        var prompt_context = conversations.join(' ') + ' ';  // Joins elements
+        var prompt_context = conversations.join(' ') + ' ';  // Joins elements, use let?
         var prompt_prompt = `Write/continue a/the detailed story from this prompt/context (if any): ${prompt_context}. The latest prompt is: ${prompt}`;
 
         const model = await genAI.getGenerativeModel({ model: "gemini-2.5-flash" });  // Ensure to fetch model every time...

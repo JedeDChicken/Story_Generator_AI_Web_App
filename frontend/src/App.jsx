@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import { useEffect, useState } from 'react'  // React hooks for state and lifecycle
 import reactLogo from './assets/react.svg'
 import viteLogo from '/vite.svg'
 import './App.css'
@@ -6,16 +6,20 @@ import './App.css'
 // Install HTTP client- Axios or Fetch?, npm i axios
 import axios from 'axios'  // HTTP client for making requests from browser (or Node.js), for us- to make a POST request to backend API
 import { useMutation } from '@tanstack/react-query'  // Hook, to handle side-effect operations (e.g. API requests), easy way to manage state (e.g. loading, success, error) for async tasks (e.g. sending data to server)
+// useMutation- for managion POST (mutating) reqs
+// useEffect & useState from 'react', useMutation from '@tanstack/react-query'
 
+// API helper functions
 // Use Mutation (from React Query)- Hook used to make HTTP req (either POST, PUT, or DELETE)
 // Function to make req, must return a Promise (useMutation), async functions return Promise
+// Sends prompt to backend, req
 const makeRequestAPI = async (prompt) => {  // Must accept the prompt, care
   const res = await axios.post('https://jede-story-generator-backend.vercel.app/generate', { prompt });  // Sends POST request to backend (8080...) w/ { prompt } as body...
   // const res = await axios.post("http://localhost:8080/generate", { prompt }); 
   return res.data;  // res- response object, data...
 }
 
-// Fetch history from db
+// Fetch history from db, retrieves history from backend
 const fetchHistoryAPI = async () => {
   const res = await axios.get('https://jede-story-generator-backend.vercel.app/prompts');
   // const res = await axios.get('http://localhost:8080/prompts');
@@ -25,12 +29,12 @@ const fetchHistoryAPI = async () => {
 function App() {
   // From handling, making req to backend, use react query to make the req
   // const [count, setCount] = useState(0)
-  const [prompt, setPrompt] = useState('');  // Internal State via Use State Hook, for the Form Management as That?, Local state to store input prompt
+  const [prompt, setPrompt] = useState('');  // Internal State via Use State Hook, for the Form Management as That?, Local state to store input prompt, initial state value is ''
   const [error, setError] = useState('');
   const [history, setHistory] = useState([]);  // Local state to store history of prompts
   const [activeHistory, setActiveHistory] = useState(null);  // Tracks selected history, for CSS...
 
-  // Fetch history
+  // Fetch history, to be called later on page load and mutation..., try/catch so errors here won't crash app
   const fetchHistory = async () => {
     try {
       const historyData = await fetchHistoryAPI();  //
@@ -42,12 +46,12 @@ function App() {
   }
   // Mutations- for writing/modifying operations (e.g. POST, PUT, DELETE) (or triggering server-side actions... backend...) vs Fetch?- for GET...
 
-  // Fetch history on mount
+  // Fetch history once on mount (for initial load), shows user saved history
   useEffect(() => {  // Another React Hook (like useState) that lets us run Side Effects in function components (Side Effects- any operation outside the component's rendering logic)
     fetchHistory();
   }, []);  // Empty dependency array to run only once on mount, Cleanup- undo any setup to avoid memory leaks..., Dependencies- control when the effect re-runs (for optimization)...
 
-  // Logic for Mutation
+  // Logic for Mutation (handling prompt/req), Mutation setup, good to easily handle loading/success/error
   const mutation = useMutation({
     mutationFn: makeRequestAPI,  // Function to be executed
     mutationKey: ['gemini-ai-request'],  // Value of mutationKey will be used by React Query BTS for optimization and other logics, key must be descriptive, unique key for this mutation (useful for caching and optimization in React Query)
@@ -60,16 +64,16 @@ function App() {
     }
   });
 
-  // Submit handler
+  // Submit handler, validation before sending
   const submitHandler = (e) => {
-    e.preventDefault();  // Prevent the default form submission behavior (that reloads the page)
+    e.preventDefault();  // Prevent the default form submission behavior (that Reloads the page)
 
-    if (!prompt.trim()) {
+    if (!prompt.trim()) {  // Trim- removes white spaces before and after prompt
       setError('Please enter a prompt.');
       return;
     }
 
-    mutation.mutate(prompt);  // Mutate- pass in what we wanna send (prompt, the one from the State) to the API, triggers the mutation
+    mutation.mutate(prompt);  // Mutate- pass in what we wanna send (prompt, the one from the State) to the API, triggers the mutation that we set up
     setActiveHistory({ prompt });
   }
 
@@ -108,8 +112,8 @@ function App() {
         <header>AI Story Generator</header>
         <h2>Enter a prompt and let Gemini AI write a unique story for you.</h2>
 
-        <form className='App__form' onSubmit={ submitHandler } action="">
-          <label htmlFor='Enter your prompt: '></label>
+        <form className='App__form' onSubmit={ submitHandler } action="">  {/* Can submit data by pressing Enter or clicking a button */}
+          <label htmlFor='App__input--id'>Enter your prompt:</label>
 
           <div className='App__form--input'>
             <input type='text' 
@@ -120,6 +124,7 @@ function App() {
             }}  // Error function, we have access to the event...
             placeholder='Write a story about...' 
             className='App__input'
+            id='App__input--id'
             />
 
             <button className='App__button' type='submit'>Generate</button>
@@ -129,8 +134,8 @@ function App() {
             {error && <p className='App_error'>{error}</p>}
           </div>
 
-          <section className='App__response'>           
-            { mutation.isPending && <p>Generating your content...</p> }
+          <section className='App__response'>  {/* Group of related contents */}           
+            { mutation.isPending && <p>Generating your content...</p> }  {/* Conditional rendering using &&- if condition is true then render <p>... */}
             { mutation.isError && <p>{mutation.error.message}</p> }
             { mutation.isSuccess && <p>{mutation.data}</p> }
           </section>

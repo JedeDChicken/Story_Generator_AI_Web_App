@@ -2,8 +2,9 @@
 
 // Notes
 // See Quickstart documentation- https://ai.google.dev/gemini-api/docs/quickstart?lang=node
+// For Node
 // Node.js v20.11.1
-// npm init -y, npm install express cors dotenv; Practice- install on parent directory?
+// npm init -y (creates package.json, add "type": "module", [ES {ecmascript} Modules]), npm install mongodb express cors dotenv; Practice- install on parent directory?
 // npm install @google/generative-ai
 // node app.js
 // Nodemon- instead use node --watch app.js
@@ -19,7 +20,7 @@ import cors from 'cors';
 
 // import axios from 'axios';  // for making API requests to external services
 // import OpenAI from 'openai';
-import routes from './routes/routes.js';
+import router from './routes/routes.js';  // Exported router object @ routes.js, routes is a local variable name (free to choose...)
 
 dotenv.config();
 const PORT = process.env.PORT || 8080;
@@ -40,7 +41,7 @@ const corsOptions = {
 app.use(cors(corsOptions));
 
 // app.use('/record', records);  // /record- initial path, so /:id is /record/id
-app.use(routes);
+app.use(router);
 
 // Imagen
 // async function generateImage(prompt) {
@@ -69,10 +70,11 @@ app.listen(PORT, () => {
 // Notes
 // Care http/s
 // Can also add auth, #reqs...
+// For React
 // Used vite to create react app
 // npm create vite@latest, cd vite-project?- can use frontend folder instead of vite-project, npm install, npm run dev
 
-// React Query (TanStack)- to manage server state or make HTTP req to backend, makes life easier for loading, error, succes, caching?, and pagination
+// React Query (TanStack)- to manage server state or make HTTP req to backend, makes life easier for loading, error, success, caching?, and pagination
 // npm i @tanstack/react-query
 // Connect to app, wrap react query w/ our app
 
@@ -85,9 +87,9 @@ app.listen(PORT, () => {
 
 // Avoid spaces on file/folder names...
 // Vite- modern way to create React apps
-// npm create vite@latest client -- --template react
-// Other dependencies- npm install -D tailwindcss postcss autoprefixer, -D- for dev dependencies
-// npx tailwindcss init -p
+// npm create vite@latest client -- --template react, can now run cd client / npm install / npm run dev
+// Other dependencies- npm install -D (for dev dependencies) tailwindcss postcss autoprefixer, -D- for dev dependencies
+// npx tailwindcss init -p, add <sources...> to content: [] @ tailwind.config.js, remove boilerplate @ index.js and add @tailwind...
 // Tailwind- utility first CSS framework that allows us to add CSS styles by utilizing predefined classnames..., https://tailwindcss.com/docs/installation
 // npm run start
 // npm install -D react-router-dom, as dev, adds client-side page routing to react, https://reactrouter.com/en/main/start/tutorial
@@ -101,3 +103,5 @@ app.listen(PORT, () => {
 // Update- git status, git branch and git checkout <branch-name>, git add ., git commit -m '<msg>', git push origin main
 
 // Restart- git reset --hard, git rm -r --cached, delete .git folder
+
+// References- https://youtu.be/4nKWREmCvsE, 

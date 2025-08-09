@@ -1,7 +1,7 @@
 import { MongoClient, ServerApiVersion } from 'mongodb';
-import dotenv from 'dotenv';
+import dotenv from 'dotenv';  // Optional?
 
-dotenv.config();
+dotenv.config();  // Optional?
 const uri = process.env.MONGO_URI1;
 
 // Create MongoClient with MongoClientOptions object to set Stable API ver
@@ -24,11 +24,11 @@ catch(err) {
     // Ensures that client will close when you finish/error
     await client.close();
     console.error('Failed to connect to MongoDB', err);
-    throw err;
+    throw err;  // Optional?
 }
 
 // run().catch(console.dir);
-const db = client.db('gemini_db');  // Automatically creates 'prompts' database
+const db = client.db('gemini_db');  // Automatically creates 'prompts' database, let?
 // const promptsCollection = db.collection('prompts');
 // const storiesCollection = db.collection('stories');
 
